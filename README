@@ -1,0 +1,10 @@
+ Status: (early days)!
+
+ Java bindings to OpenVG, accelerated vector graphics.
+   http://www.khronos.org/openvg/
+
+ This code has been developed on one platform.  Please report or fix &
+ share incompatibilities with other platforms.  (That's the plan).
+
+ John Pritchard, jdp@syntelos.org
+ Saturday, 2011/01/15

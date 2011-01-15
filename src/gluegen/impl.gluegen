@@ -1,0 +1,14 @@
+
+Include jovg.gluegen
+
+Style ImplOnly
+
+
+ClassJavadoc OpenVGL /**
+ClassJavadoc OpenVGL  * Java bindings to <a href="http://www.khronos.org/openvg/">OpenVG</a>, accelerated vector graphics.
+ClassJavadoc OpenVGL  * @author John Pritchard
+ClassJavadoc OpenVGL  */
+
+ImplJavaClass OpenVGL
+AccessControl OpenVGL PUBLIC
+Implements OpenVG 

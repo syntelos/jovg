@@ -1,0 +1,21 @@
+<project name="jovg.etc" basedir=".">
+
+  <condition property="jovg.etc" value=".">
+    <not>
+      <isset property="jovg.etc"/>
+    </not>
+  </condition>
+
+  <condition property="ant.jar" value="/usr/share/java/ant.jar">
+    <not>
+      <isset property="ant.jar"/>
+    </not>
+  </condition>
+
+  <path id="jovg.etc.classpath">
+    <pathelement location="${jovg.etc}/bin" />
+  </path>
+
+  <taskdef name="uncomment-copy" classname="com.jogamp.jovg.ant.CSourceUncomment" classpathref="jovg.etc.classpath" />
+
+</project>

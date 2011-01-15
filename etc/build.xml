@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jovg.etc" default="compile" basedir=".">
+
+
+  <property file="${user.home}/jovg.properties"/>
+
+  <import file="${basedir}/jovg-ant.xml" />
+
+
+  <target name="compile">
+    <mkdir dir="bin"/>
+    <javac srcdir="src" destdir="bin" debug="true" includeantruntime="true" />
+  </target>
+
+  <target name="test">
+
+    <uncomment-copy src="../src/native/include/VG/openvg.h"/>
+
+  </target>
+
+</project>
