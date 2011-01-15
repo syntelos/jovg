@@ -19,81 +19,14 @@
 
   <import file="${jovg.etc}/jovg-ant.xml" />
 
-  <fail message="Missing VG sources.">
-    <condition>
-      <not>
-	<and>
-          <resourceexists>
-            <file file="${jovg.ri.include}/VG/openvg.h"/>
-          </resourceexists>
-          <resourceexists>
-            <file file="${jovg.ri.include}/VG/vgu.h"/>
-          </resourceexists>
-          <resourceexists>
-            <file file="${jovg.ri.include}/VG/vgplatform.h"/>
-          </resourceexists>
-	</and>
-      </not>
-    </condition>
-  </fail>
-
-  <property name="gluegen.root" value="../gluegen" />
-
-  <fail message="Missing 'gluegen' (sibling to this project).">
-    <condition>
-      <not>
-        <resourceexists>
-          <file file="${gluegen.root}"/>
-        </resourceexists>
-      </not>
-    </condition>
-  </fail>
-
-  <import file="${gluegen.root}/make/gluegen-cpptasks.xml" />
-
-  <condition property="rootrel.build" value="build">
-    <not>
-      <isset property="rootrel.build"/>
-    </not>
-  </condition>
-
-  <condition property="file.reference.gluegen.jar" value="${gluegen.root}/${rootrel.build}/gluegen.jar">
-    <not>
-      <isset property="file.reference.gluegen.jar"/>
-    </not>
-  </condition>
-
-  <condition property="ant.jar" value="/usr/share/java/ant.jar">
-    <not>
-      <isset property="ant.jar"/>
-    </not>
-  </condition>
-
-  <condition property="antlr.jar" value="/usr/share/java/antlr.jar">
-    <not>
-      <isset property="antlr.jar"/>
-    </not>
-  </condition>
 
   <target name="preprocess">
-
-    <path id="preprocess.classpath">
-      <pathelement location="${ant.jar}" />
-      <pathelement location="${antlr.jar}" />
-    </path>
 
     <uncomment-copy src="${jovg.ri.include}/VG/openvg.h" dest="src/native/include/VG" />
     <uncomment-copy src="${jovg.ri.include}/VG/vgu.h" dest="src/native/include/VG" />
   </target>
 
   <target name="gluegen" depends="preprocess">
-
-    <path id="gluegen.classpath">
-      <pathelement location="${file.reference.gluegen.jar}" />
-      <pathelement location="${antlr.jar}" />
-    </path>
-
-    <taskdef name="gluegen" classname="com.jogamp.gluegen.ant.GlueGenTask" classpathref="gluegen.classpath" />
 
     <dirset id="jovg.gluegen.include.path" dir="${basedir}">
       <include name="src/gluegen/stubs"/>
@@ -119,14 +52,6 @@
       <classpath refid="gluegen.classpath" />
     </gluegen>
 
-    <gluegen src="src/native/include/VG/opencl.h"
-             config="src/gluegen/impl.gluegen"
-             includeRefid="jovg.gluegen.include.path"
-	     outputRootDir="${jovg.build}/src"
-             emitter="com.jogamp.gluegen.JavaEmitter"
-             debug="false">
-      <classpath refid="gluegen.classpath" />
-    </gluegen>
   </target>
 
 </project>

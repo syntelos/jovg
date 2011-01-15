@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="jovg.etc" default="compile" basedir=".">
 
-
   <property file="${user.home}/jovg.properties"/>
+  <property file="${basedir}/../jovg.properties"/>
+
+  <property name="jovg.build" value="${basedir}/../build"/>
+  <property name="jovg.etc" value="${basedir}"/>
+  <property name="jovg.ri.version" value="1.1"/>
+  <property name="jovg.ri.root" value="${basedir}/../ri_package_${jovg.ri.version}"/>
+  <property name="jovg.ri.include" value="${jovg.ri.root}/ri/include"/>
 
   <import file="${basedir}/jovg-ant.xml" />
 
