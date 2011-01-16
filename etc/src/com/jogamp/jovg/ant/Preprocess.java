@@ -2,7 +2,6 @@ package com.jogamp.jovg.ant;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,26 +12,28 @@ import org.apache.tools.ant.Task;
 import static java.util.regex.Pattern.*;
 
 /**
- * Build setup utility. Uncomments header files.
+ * Build utility preprocesses header files for GlueGen/Cgram.
  *
  * @author Michael Bien
  * @author John Pritchard
  */
-public class CSourceUncomment extends Task {
+public class Preprocess extends Task {
 
     final static Pattern PARAMS_PATTERN
-            = compile("cl\\w+ \\(   (  \\s* [^;]+  )  \\)", MULTILINE|COMMENTS);
+            = compile("vg\\w+ \\(   (  \\s* [^;]+  )  \\)", MULTILINE|COMMENTS);
 
     final static Pattern COMMENT_PATTERN
             = compile("\\s*(const)?\\w+\\s* \\**\\s+ (/\\*) \\s+[^\\*\\[]+ (\\*/)", MULTILINE|COMMENTS);
                                                                      //^ array size in param name causes some problems
+
+    final static Pattern DEFINITION_PATTERN = compile("\\s*(\\w+)\\s*=\\s*([^,]+),?\\s*$");
 
 
     private File src;
     private File dest;
 
 
-    public CSourceUncomment(){
+    public Preprocess(){
 	super();
     }
 
@@ -53,10 +54,7 @@ public class CSourceUncomment extends Task {
 	    throw new BuildException("Require parameter 'src'.");
 	else {
 	    try {
-		Uncomment(this.src, this.dest);
-	    }
-	    catch (FileNotFoundException ex) {
-		throw new BuildException(ex);
+		Rewrite(this.src, this.dest);
 	    }
 	    catch (IOException ex) {
 		throw new BuildException(ex);
@@ -64,19 +62,20 @@ public class CSourceUncomment extends Task {
 	}
     }
 
-    private final static void Uncomment(File srcFile, File destFile) throws FileNotFoundException, IOException {
+    private final static void Rewrite(File srcFile, File destFile) throws IOException {
 
-        System.out.printf("CSourceUncomment read from %s%n",srcFile.getPath());
+        System.out.printf("Preprocess read from %s%n",srcFile.getPath());
 
         StringBuilder headerSrc = ReadSourceFile(srcFile);
-        Matcher matcher = PARAMS_PATTERN.matcher(headerSrc);
 
         /*
-	 * Iterate through funcions
+	 * Drop comments within function parameters
 	 */
-        while (matcher.find()) {
+        Matcher parmsMatcher = PARAMS_PATTERN.matcher(headerSrc);
 
-            StringBuilder params = new StringBuilder(matcher.group(1));
+        while (parmsMatcher.find()) {
+
+            StringBuilder params = new StringBuilder(parmsMatcher.group(1));
 	    /*
 	     * Iterate through params
 	     */
@@ -91,14 +90,24 @@ public class CSourceUncomment extends Task {
             /*
 	     * Replace old params with uncommented params
 	     */
-            headerSrc.replace(matcher.start(1), matcher.end(1), params.toString());
+            headerSrc.replace(parmsMatcher.start(1), parmsMatcher.end(1), params.toString());
         }
+
+        /*
+	 * Rewrite constant arithmetic expressions to values
+	 */
+        Matcher defsMatcher = DEFINITION_PATTERN.matcher(headerSrc);
+
+	while (defsMatcher.find()){
+
+            System.out.printf("%s // %s // %s %n",defsMatcher.group(),defsMatcher.group(1),defsMatcher.group(2));
+	}
 
         if (null != destFile) {
 	    if (destFile.isDirectory()){
 		destFile = new File(destFile,srcFile.getName());
 	    }
-	    System.out.printf("CSourceUncomment write to %s%n",destFile.getPath());
+	    System.out.printf("Preprocess write to %s%n",destFile.getPath());
 
             BufferedWriter out = new BufferedWriter(new FileWriter(destFile));
 	    try {
@@ -110,12 +119,12 @@ public class CSourceUncomment extends Task {
 	    }
         }
 	else {
-            System.out.println(headerSrc);
+	    // System.out.println(headerSrc);
         }
     }
 
 
-    private final static StringBuilder ReadSourceFile(File file) throws FileNotFoundException, IOException {
+    private final static StringBuilder ReadSourceFile(File file) throws IOException {
 	final long length = file.length();
 	if (length <= Integer.MAX_VALUE){
 	    int len = (int)length;
@@ -145,7 +154,7 @@ public class CSourceUncomment extends Task {
 
     private static void usage(){
 	System.err.println("Usage");
-	System.err.println("  CSourceUncomment <infile.h>");
+	System.err.println("  Preprocess <infile.h>");
 	System.err.println("Description");
 	System.err.println("  Test function, writing to stdout.");
 	System.exit(1);
@@ -157,7 +166,7 @@ public class CSourceUncomment extends Task {
 	    File hf = new File(argv[0]);
 	    if (hf.isFile()){
 		try {
-		    Uncomment(hf,null);
+		    Preprocess.Rewrite(hf,null);
 
 		    System.exit(0);
 		}

@@ -22,8 +22,8 @@
 
   <target name="preprocess">
 
-    <uncomment-copy src="${jovg.ri.include}/VG/openvg.h" dest="src/native/include/VG" />
-    <uncomment-copy src="${jovg.ri.include}/VG/vgu.h" dest="src/native/include/VG" />
+    <preprocess-copy src="${jovg.ri.include}/VG/openvg.h" dest="src/native/include/VG" />
+    <preprocess-copy src="${jovg.ri.include}/VG/vgu.h" dest="src/native/include/VG" />
   </target>
 
   <target name="gluegen" depends="preprocess">

@@ -15,16 +15,22 @@
   <path id="jovg.etc.classpath">
     <path location="${antlr.jar}"/>
     <path location="${gluegen.jar}"/>
+    <path location="${ant.jar}"/>
   </path>
 
   <target name="compile">
     <mkdir dir="bin"/>
-    <javac srcdir="src" destdir="bin" debug="true" includeantruntime="true" classpathref="jovg.etc.classpath"/>
+    <javac srcdir="src" 
+	   destdir="bin" 
+	   debug="true" 
+	   fork="true" 
+	   includeantruntime="false"
+	   classpathref="jovg.etc.classpath"/>
   </target>
 
-  <target name="test-uncomment">
+  <target name="test-preprocess">
 
-    <uncomment-copy src="../src/native/include/VG/openvg.h"/>
+    <preprocess-copy src="../src/native/include/VG/openvg.h"/>
 
   </target>
 

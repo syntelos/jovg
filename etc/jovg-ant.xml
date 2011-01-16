@@ -62,23 +62,24 @@
     <pathelement location="${jovg.etc}/bin" />
   </path>
 
-  <taskdef name="uncomment-copy" classname="com.jogamp.jovg.ant.CSourceUncomment" classpathref="jovg.etc.classpath" />
+  <taskdef name="preprocess-copy" classname="com.jogamp.jovg.ant.Preprocess" classpathref="jovg.etc.classpath" />
 
   <path id="gluegen.classpath">
-    <pathelement location="${gluegen.jar}" />
     <pathelement location="${antlr.jar}" />
+    <pathelement location="${gluegen.jar}" />
   </path>
 
   <taskdef name="gluegen" classname="com.jogamp.gluegen.ant.GlueGenTask" classpathref="gluegen.classpath" />
 
   <path id="test.through.classpath">
     <pathelement path="${toString:gluegen.classpath}" />
-    <pathelement location="${toString:jovg.etc.classpath}" />
+    <pathelement path="${toString:jovg.etc.classpath}" />
   </path>
 
   <macrodef name="test-through">
     <attribute name="src"/>
     <sequential>
+
       <java classpathref="test.through.classpath" classname="com.jogamp.jovg.cgram.TestThrough" fork="true">
 	<arg value="@{src}"/>
       </java>

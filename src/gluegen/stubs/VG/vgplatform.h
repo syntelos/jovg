@@ -34,10 +34,6 @@
 #ifndef _VGPLATFORM_H
 #define _VGPLATFORM_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifndef VG_API_CALL 
 #	define VG_API_CALL
 #endif /* ifndef VG_API_CALL */
@@ -73,9 +69,5 @@ typedef unsigned int   VGbitfield;
 #ifndef VG_VGEXT_PROTOTYPES
 #define VG_VGEXT_PROTOTYPES
 #endif 
-
-#ifdef __cplusplus 
-} /* extern "C" */
-#endif
 
 #endif /* _VGPLATFORM_H */

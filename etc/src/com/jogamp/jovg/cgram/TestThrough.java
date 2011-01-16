@@ -1,10 +1,12 @@
 package com.jogamp.jovg.cgram;
 
+
+import com.jogamp.gluegen.cgram.*;
+
 import java.io.*;
 
 import antlr.*;
 
-import com.jogamp.gluegen.cgram.*;
 
 public class TestThrough
 {
@@ -22,14 +24,14 @@ public class TestThrough
 		}
 		GnuCLexer lexer =
 		    new GnuCLexer ( dis );
-		lexer.setTokenObjectClass("CToken");
+		lexer.setTokenObjectClass(CToken.class.getName());
 		lexer.initialize();
 		// Parse the input expression.
 		GnuCParser parser = new GnuCParser ( lexer );
             
 		// set AST node type to TNode or get nasty cast class errors
 		parser.setASTNodeType(TNode.class.getName());
-		TNode.setTokenVocabulary("GNUCTokenTypes");
+		TNode.setTokenVocabulary(GNUCTokenTypes.class.getName());
 
 		// invoke parser
 		try {

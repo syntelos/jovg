@@ -36,9 +36,6 @@
 
 #include <VG/vgplatform.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 #define OPENVG_VERSION_1_0		1
 #define OPENVG_VERSION_1_0_1	1
@@ -257,19 +254,19 @@ typedef enum {
 } VGPathCommand;
 
 typedef enum {
-  VG_PATH_CAPABILITY_APPEND_FROM              = (1 <<  0),
-  VG_PATH_CAPABILITY_APPEND_TO                = (1 <<  1),
-  VG_PATH_CAPABILITY_MODIFY                   = (1 <<  2),
-  VG_PATH_CAPABILITY_TRANSFORM_FROM           = (1 <<  3),
-  VG_PATH_CAPABILITY_TRANSFORM_TO             = (1 <<  4),
-  VG_PATH_CAPABILITY_INTERPOLATE_FROM         = (1 <<  5),
-  VG_PATH_CAPABILITY_INTERPOLATE_TO           = (1 <<  6),
-  VG_PATH_CAPABILITY_PATH_LENGTH              = (1 <<  7),
-  VG_PATH_CAPABILITY_POINT_ALONG_PATH         = (1 <<  8),
-  VG_PATH_CAPABILITY_TANGENT_ALONG_PATH       = (1 <<  9),
-  VG_PATH_CAPABILITY_PATH_BOUNDS              = (1 << 10),
-  VG_PATH_CAPABILITY_PATH_TRANSFORMED_BOUNDS  = (1 << 11),
-  VG_PATH_CAPABILITY_ALL                      = (1 << 12) - 1,
+  VG_PATH_CAPABILITY_APPEND_FROM              = 0x1,
+  VG_PATH_CAPABILITY_APPEND_TO                = 0x2,
+  VG_PATH_CAPABILITY_MODIFY                   = 0x4,
+  VG_PATH_CAPABILITY_TRANSFORM_FROM           = 0x8,
+  VG_PATH_CAPABILITY_TRANSFORM_TO             = 0x10,
+  VG_PATH_CAPABILITY_INTERPOLATE_FROM         = 0x20,
+  VG_PATH_CAPABILITY_INTERPOLATE_TO           = 0x40,
+  VG_PATH_CAPABILITY_PATH_LENGTH              = 0x80,
+  VG_PATH_CAPABILITY_POINT_ALONG_PATH         = 0x100,
+  VG_PATH_CAPABILITY_TANGENT_ALONG_PATH       = 0x200,
+  VG_PATH_CAPABILITY_PATH_BOUNDS              = 0x400,
+  VG_PATH_CAPABILITY_PATH_TRANSFORMED_BOUNDS  = 0x800,
+  VG_PATH_CAPABILITY_ALL                      = 0xFFF,
 
   VG_PATH_CAPABILITIES_FORCE_SIZE             = VG_MAX_ENUM
 } VGPathCapabilities;
@@ -739,8 +736,5 @@ VG_API_CALL VGHardwareQueryResult VG_API_ENTRY vgHardwareQuery(VGHardwareQueryTy
 /* Renderer and Extension Information */
 VG_API_CALL const VGubyte * VG_API_ENTRY vgGetString(VGStringID name) VG_API_EXIT;
 
-#ifdef __cplusplus 
-} /* extern "C" */
-#endif
 
 #endif /* _OPENVG_H */
