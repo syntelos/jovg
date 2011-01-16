@@ -40,9 +40,9 @@
     </not>
   </condition>
 
-  <condition property="file.reference.gluegen.jar" value="${gluegen.root}/${rootrel.build}/gluegen.jar">
+  <condition property="gluegen.jar" value="${gluegen.root}/${rootrel.build}/gluegen.jar">
     <not>
-      <isset property="file.reference.gluegen.jar"/>
+      <isset property="gluegen.jar"/>
     </not>
   </condition>
 
@@ -52,7 +52,7 @@
     </not>
   </condition>
 
-  <condition property="antlr.jar" value="/usr/share/java/antlr.jar">
+  <condition property="antlr.jar" value="${gluegen.root}/${rootrel.build}/antlr.jar">
     <not>
       <isset property="antlr.jar"/>
     </not>
@@ -65,10 +65,35 @@
   <taskdef name="uncomment-copy" classname="com.jogamp.jovg.ant.CSourceUncomment" classpathref="jovg.etc.classpath" />
 
   <path id="gluegen.classpath">
-    <pathelement location="${file.reference.gluegen.jar}" />
+    <pathelement location="${gluegen.jar}" />
     <pathelement location="${antlr.jar}" />
   </path>
 
   <taskdef name="gluegen" classname="com.jogamp.gluegen.ant.GlueGenTask" classpathref="gluegen.classpath" />
+
+  <path id="test.through.classpath">
+    <pathelement path="${toString:gluegen.classpath}" />
+    <pathelement location="${toString:jovg.etc.classpath}" />
+  </path>
+
+  <macrodef name="test-through">
+    <attribute name="src"/>
+    <sequential>
+      <java classpathref="test.through.classpath" classname="com.jogamp.jovg.cgram.TestThrough" fork="true">
+	<arg value="@{src}"/>
+      </java>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="test-gluegen">
+    <attribute name="inc"/>
+    <attribute name="src"/>
+    <sequential>
+      <java classpathref="gluegen.classpath" classname="com.jogamp.gluegen.GlueGen" fork="true">
+	<arg value="@{inc}"/>
+	<arg value="@{src}"/>
+      </java>
+    </sequential>
+  </macrodef>
 
 </project>

@@ -12,15 +12,31 @@
 
   <import file="${basedir}/jovg-ant.xml" />
 
+  <path id="jovg.etc.classpath">
+    <path location="${antlr.jar}"/>
+    <path location="${gluegen.jar}"/>
+  </path>
 
   <target name="compile">
     <mkdir dir="bin"/>
-    <javac srcdir="src" destdir="bin" debug="true" includeantruntime="true" />
+    <javac srcdir="src" destdir="bin" debug="true" includeantruntime="true" classpathref="jovg.etc.classpath"/>
   </target>
 
-  <target name="test">
+  <target name="test-uncomment">
 
     <uncomment-copy src="../src/native/include/VG/openvg.h"/>
+
+  </target>
+
+  <target name="test-through">
+
+    <test-through src="../src/native/include/VG/openvg.h"/>
+
+  </target>
+
+  <target name="test-gluegen">
+
+    <test-gluegen inc="-I../src/gluegen/stubs:../src/native/include" src="../src/native/include/VG/openvg.h"/>
 
   </target>
 
