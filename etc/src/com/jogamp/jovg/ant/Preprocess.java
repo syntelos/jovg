@@ -25,9 +25,9 @@ public class Preprocess extends Task {
     final static Pattern COMMENT_PATTERN
             = compile("\\s*(const)?\\w+\\s* \\**\\s+ (/\\*) \\s+[^\\*\\[]+ (\\*/)", MULTILINE|COMMENTS);
                                                                      //^ array size in param name causes some problems
-
+    /*
     final static Pattern DEFINITION_PATTERN = compile("\\s*(\\w+)\\s*=\\s*([^,]+),?\\s*$");
-
+    */
 
     private File src;
     private File dest;
@@ -95,14 +95,14 @@ public class Preprocess extends Task {
 
         /*
 	 * Rewrite constant arithmetic expressions to values
-	 */
+
         Matcher defsMatcher = DEFINITION_PATTERN.matcher(headerSrc);
 
 	while (defsMatcher.find()){
 
             System.out.printf("%s // %s // %s %n",defsMatcher.group(),defsMatcher.group(1),defsMatcher.group(2));
 	}
-
+	 */
         if (null != destFile) {
 	    if (destFile.isDirectory()){
 		destFile = new File(destFile,srcFile.getName());
@@ -119,7 +119,11 @@ public class Preprocess extends Task {
 	    }
         }
 	else {
-	    // System.out.println(headerSrc);
+	    /*
+	     * Test case, stdout
+	     * (println flushes)
+	     */
+	    System.out.println(headerSrc);
         }
     }
 

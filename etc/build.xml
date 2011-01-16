@@ -30,19 +30,19 @@
 
   <target name="test-preprocess">
 
-    <preprocess-copy src="../src/native/include/VG/openvg.h"/>
+    <preprocess-copy src="${jovg.ri.include}/VG/openvg.h"/>
 
   </target>
 
   <target name="test-through">
 
-    <test-through src="../src/native/include/VG/openvg.h"/>
+    <test-through src="${jovg.ri.include}/VG/openvg.h"/>
 
   </target>
 
   <target name="test-gluegen">
 
-    <test-gluegen inc="-I../src/gluegen/stubs:../src/native/include" src="../src/native/include/VG/openvg.h"/>
+    <test-gluegen inc="-I../src/gluegen/stubs:../src/native/include" src="${jovg.ri.include}/VG/openvg.h"/>
 
   </target>
 
