@@ -10,6 +10,14 @@
   <property name="jovg.ri.root" value="${basedir}/../ri_package_${jovg.ri.version}"/>
   <property name="jovg.ri.include" value="${jovg.ri.root}/ri/include"/>
 
+  <property name="gluegen.root" value="${basedir}/../../gluegen" />
+  <property name="rootrel.build" value="build"/>
+  <property name="gluegen.jar" value="${gluegen.root}/${rootrel.build}/gluegen.jar"/>
+  <property name="ant.jar" value="/usr/share/java/ant.jar"/>
+  <property name="antlr.jar" value="${gluegen.root}/${rootrel.build}/antlr.jar"/>
+  <property name="gluegen.debug" value="false"/>
+  <property name="gluegen.cpp.debug" value="false"/>
+
   <import file="${basedir}/jovg-ant.xml" />
 
   <path id="jovg.etc.classpath">

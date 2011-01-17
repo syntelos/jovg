@@ -20,8 +20,6 @@
     </condition>
   </fail>
 
-  <property name="gluegen.root" value="${jovg.etc}/../../gluegen" />
-
   <fail message="Missing gluegen, property gluegen.root='${gluegen.root}'.">
     <condition>
       <not>
@@ -34,29 +32,6 @@
 
   <import file="${gluegen.root}/make/gluegen-cpptasks.xml" />
 
-  <condition property="rootrel.build" value="build">
-    <not>
-      <isset property="rootrel.build"/>
-    </not>
-  </condition>
-
-  <condition property="gluegen.jar" value="${gluegen.root}/${rootrel.build}/gluegen.jar">
-    <not>
-      <isset property="gluegen.jar"/>
-    </not>
-  </condition>
-
-  <condition property="ant.jar" value="/usr/share/java/ant.jar">
-    <not>
-      <isset property="ant.jar"/>
-    </not>
-  </condition>
-
-  <condition property="antlr.jar" value="${gluegen.root}/${rootrel.build}/antlr.jar">
-    <not>
-      <isset property="antlr.jar"/>
-    </not>
-  </condition>
 
   <path id="jovg.etc.classpath">
     <pathelement location="${jovg.etc}/bin" />

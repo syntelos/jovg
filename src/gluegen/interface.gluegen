@@ -10,5 +10,6 @@ Import java.nio.LongBuffer
 ClassJavadoc OpenVG /**
 ClassJavadoc OpenVG  * Java bindings to <a href="http://www.khronos.org/openvg/">OpenVG</a>, accelerated vector graphics.
 ClassJavadoc OpenVG  * @author John Pritchard
+ClassJavadoc OpenVG  * @author Rami Santina
 ClassJavadoc OpenVG  */
 JavaClass OpenVG
