@@ -1,10 +1,10 @@
- Status: (early days)!
+ Status: Postponed indefinitely 
 
  Java bindings to OpenVG, accelerated vector graphics.
    http://www.khronos.org/openvg/
 
- This code has been developed on one platform.  Please report or fix &
- share incompatibilities with other platforms.  (That's the plan).
+ There's another plan in the works for true 3D vector graphics that
+ supercedes the idea of implementing 2D VG for JOGL.
 
  John Pritchard, jdp@syntelos.org
- Saturday, 2011/01/15
+ Monday, 2011/01/17
