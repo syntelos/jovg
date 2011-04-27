@@ -1,10 +1,7 @@
- Status: Postponed indefinitely 
+ Status: Planning
 
- Java bindings to OpenVG, accelerated vector graphics.
-   http://www.khronos.org/openvg/
-
- There's another plan in the works for true 3D vector graphics that
- supercedes the idea of implementing 2D VG for JOGL.
+ Proposed future home for an SVG Component Compiler described in 
+  https://docs.google.com/document/pub?id=1JSPUlI3Br1fz5MVsWrLTXebbNHnyVbrwGgCLOhMi5G4
 
  John Pritchard, jdp@syntelos.org
- Monday, 2011/01/17
+ Wednesday, 2011/04/27
